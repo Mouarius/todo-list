@@ -53,7 +53,6 @@ const store = {
   },
   setFilterValueAction(value: FilterValue) {
     this.state.filterValue = value;
-    console.log(`filter value : ${this.state.filterValue}`);
   },
 };
 

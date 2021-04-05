@@ -7,7 +7,6 @@
         :id="todo.id"
         :content="todo.content"
         :done="todo.done"
-        :handleChecked="toggleChecked"
       />
     </transition-group>
   </ul>
@@ -33,11 +32,6 @@ export default {
       } else {
         return store.state.todos;
       }
-    },
-  },
-  methods: {
-    toggleChecked(id) {
-      console.log(`checking ${id}`);
     },
   },
 };

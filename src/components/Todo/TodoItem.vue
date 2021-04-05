@@ -46,7 +46,6 @@ export default defineComponent({
       }
     },
     startGrab(e: DragEvent) {
-      console.log("start grab");
       if (e.dataTransfer && this.id) {
         e.dataTransfer.dropEffect = "move";
         e.dataTransfer.effectAllowed = "move";
@@ -55,8 +54,6 @@ export default defineComponent({
       }
     },
     endGrab() {
-      console.log("end grab");
-
       this.dragged = false;
     },
     onDragOver(e: DragEvent) {
