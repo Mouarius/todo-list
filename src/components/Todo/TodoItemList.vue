@@ -2,9 +2,11 @@
   <ul class="todo-item-list">
     <transition-group name="fade">
       <todo-item
-        v-for="todo in todos"
+        v-for="todo in filteredTodos"
         :key="todo.id"
-        v-bind="todo"
+        :id="todo.id"
+        :content="todo.content"
+        :done="todo.done"
         :handleChecked="toggleChecked"
       />
     </transition-group>
@@ -20,6 +22,18 @@ export default {
     return {
       todos: store.state.todos,
     };
+  },
+  computed: {
+    filteredTodos() {
+      const filter = store.state.filterValue;
+      if (filter === "completed") {
+        return store.state.todos.filter((todo) => todo.done === true);
+      } else if (filter === "active") {
+        return store.state.todos.filter((todo) => todo.done === false);
+      } else {
+        return store.state.todos;
+      }
+    },
   },
   methods: {
     toggleChecked(id) {

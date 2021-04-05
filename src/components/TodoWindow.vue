@@ -6,14 +6,16 @@
     <div class="todo-list">
       <todo-item-list />
     </div>
+    <filter-form />
   </div>
 </template>
 
 <script>
+import FilterForm from "./FilterForm.vue";
 import InputForm from "./InputForm.vue";
 import TodoItemList from "./Todo/TodoItemList";
 export default {
-  components: { InputForm, TodoItemList },
+  components: { InputForm, TodoItemList, FilterForm },
 };
 </script>
 
@@ -23,6 +25,10 @@ export default {
   border: 2px solid rgba(250, 250, 250, 0.47);
   box-sizing: border-box;
   backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
   /* Note: backdrop-filter has minimal browser support */
   overflow: hidden;
   border-radius: 0px 50px 50px 50px;
@@ -31,5 +37,9 @@ export default {
 }
 .window header {
   background: rgb(246, 246, 249);
+  flex-grow: 0;
+}
+.window .todo-list {
+  flex-grow: 1;
 }
 </style>

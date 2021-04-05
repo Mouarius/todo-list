@@ -28,26 +28,29 @@
 import { defineComponent } from "@vue/runtime-core";
 import store from "../../app/store";
 export default defineComponent({
-  props: ["id", "done", "content"],
+  props: { id: Number, done: Boolean, content: String },
+
   data() {
     return {
       dragged: false,
       over: false,
+      isDone: this.done,
     };
   },
-  computed: {},
   methods: {
     toggleChecked(e: MouseEvent) {
       e.preventDefault();
       console.log(`toggling ${this.id}`);
-      store.toggleTodoDoneAction(this.id);
+      if (this.id) {
+        store.toggleTodoDoneAction(this.id);
+      }
     },
     startGrab(e: DragEvent) {
       console.log("start grab");
-      if (e.dataTransfer) {
+      if (e.dataTransfer && this.id) {
         e.dataTransfer.dropEffect = "move";
         e.dataTransfer.effectAllowed = "move";
-        e.dataTransfer.setData("itemID", this.id);
+        e.dataTransfer.setData("itemID", this.id.toString());
         this.dragged = true;
       }
     },
@@ -68,7 +71,7 @@ export default defineComponent({
     },
     handleDrop(e: DragEvent) {
       e.stopPropagation();
-      if (e.dataTransfer) {
+      if (e.dataTransfer && this.id) {
         const itemID = parseInt(e.dataTransfer.getData("itemID"));
         store.swapTodos(this.id, itemID);
         this.over = false;
@@ -76,7 +79,9 @@ export default defineComponent({
       return false;
     },
     handleRemoveTodo() {
-      store.removeTodoAction(this.id);
+      if (this.id) {
+        store.removeTodoAction(this.id);
+      }
     },
   },
 });

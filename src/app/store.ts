@@ -1,17 +1,20 @@
-import { Todo } from "@/types";
+import { FilterValue, Todo } from "@/types";
 
 import { reactive } from "@vue/reactivity";
 
-const initialState: Todo[] = [
+const initialTodos: Todo[] = [
   { id: 1, done: false, content: "Laver la vaisselle" },
   { id: 2, done: true, content: "Laver le chat" },
 ];
+
+const initialFilter: FilterValue = "all" as FilterValue;
 
 const store = {
   debug: true,
 
   state: reactive({
-    todos: initialState,
+    todos: initialTodos,
+    filterValue: initialFilter,
   }),
 
   addTodoAction(todo: Todo) {
@@ -47,6 +50,10 @@ const store = {
       this.state.todos[targetIndex],
       this.state.todos[sourceIndex],
     ];
+  },
+  setFilterValueAction(value: FilterValue) {
+    this.state.filterValue = value;
+    console.log(`filter value : ${this.state.filterValue}`);
   },
 };
 
